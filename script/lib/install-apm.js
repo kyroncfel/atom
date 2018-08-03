@@ -11,4 +11,11 @@ module.exports = function () {
     ['--loglevel=error', 'install'],
     {env: process.env, cwd: CONFIG.apmRootPath}
   )
+
+  console.log('Flattening apm dependencies')
+  childProcess.execFileSync(
+    CONFIG.getNpmBinPath(),
+    ['--loglevel=error', 'dedupe'],
+    {env: process.env, cwd: CONFIG.apmRootPath}
+  )
 }
