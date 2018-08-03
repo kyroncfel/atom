@@ -12,10 +12,12 @@ module.exports = function () {
     {env: process.env, cwd: CONFIG.apmRootPath}
   )
 
-  console.log('Dedupe apm dependencies')
-  childProcess.execFileSync(
-    CONFIG.getNpmBinPath(),
-    ['--loglevel=error', 'dedupe'],
-    {env: process.env, cwd: CONFIG.apmRootPath}
-  )
+  if (process.platform === 'win32') {
+    console.log('Deduping apm dependencies (Windows only)')
+    childProcess.execFileSync(
+      CONFIG.getNpmBinPath(),
+      ['--loglevel=error', 'dedupe'],
+      {env: process.env, cwd: CONFIG.apmRootPath}
+    )
+  }
 }
